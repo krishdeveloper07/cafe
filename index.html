@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafe Serenoo</title>
+
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background: #f2f2f2;
+      color: #222;
+    }
+
+    /* NAVBAR */
+    .navbar{
+      width: 100%;
+      padding: 14px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      position: sticky;
+      top: 0;
+      z-index: 2000;
+      box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .logo{
+      font-size: 26px;
+      font-weight: bold;
+      color: #ff2f2f;
+    }
+
+    .nav-mid{
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-box{
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-box input{
+      padding: 11px;
+      width: 280px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .search-box button{
+      padding: 11px 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #ff2f2f;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .auth-buttons button{
+      background: #ff2f2f;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      margin-right: 6px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .user-box{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-box span{
+      font-weight: bold;
+      color: #222;
+    }
+
+    .user-box button{
+      background: black;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .cart-icon{
+      cursor: pointer;
+      font-weight: bold;
+      background: #00c853;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    .cart-icon span{
+      background: white;
+      color: #00c853;
+      padding: 2px 8px;
+      border-radius: 50%;
+      margin-left: 6px;
+      font-weight: bold;
+    }
+
+    /* HERO */
+    .hero{
+      height: 60vh;
+      background: url("https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1600&q=80");
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero::before{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.55);
+    }
+
+    .hero-content{
+      position: relative;
+      color: white;
+      max-width: 800px;
+      padding: 10px;
+    }
+
+    .hero-content h1{
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .hero-content p{
+      font-size: 17px;
+      opacity: 0.9;
+    }
+
+    /* SECTION TITLE */
+    .section-title{
+      margin: 35px 0 15px;
+      text-align: center;
+      font-size: 30px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    /* MENU */
+    .menu-container{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .menu-card{
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0px 3px 12px rgba(0,0,0,0.1);
+      transition: 0.2s;
+      position: relative;
+    }
+
+    .menu-card:hover{
+      transform: scale(1.02);
+    }
+
+    .menu-card img{
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .offer{
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #00c853;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    .menu-info{
+      padding: 15px;
+    }
+
+    .menu-info h3{
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    .menu-info .desc{
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    .menu-info .meta{
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    .price{
+      font-size: 18px;
+      font-weight: bold;
+      color: #ff2f2f;
+      margin-bottom: 10px;
+    }
+
+    .btn-box{
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-box button{
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .cart-btn{
+      background: #ff9800;
+      color: white;
+    }
+
+    .buy-btn{
+      background: #ff2f2f;
+      color: white;
+    }
+
+    /* CART SIDEBAR */
+    .cart-sidebar{
+      position: fixed;
+      top: 0;
+      right: -450px;
+      width: 370px;
+      height: 100%;
+      background: white;
+      box-shadow: -2px 0px 12px rgba(0,0,0,0.2);
+      padding: 20px;
+      overflow-y: auto;
+      transition: 0.3s;
+      z-index: 3000;
+    }
+
+    .cart-sidebar.active{
+      right: 0;
+    }
+
+    .cart-sidebar h2{
+      margin-bottom: 10px;
+    }
+
+    .cart-item{
+      border-bottom: 1px solid #ddd;
+      padding: 12px 0;
+    }
+
+    .cart-item h4{
+      margin-bottom: 5px;
+    }
+
+    .cart-item p{
+      font-weight: bold;
+      color: #ff2f2f;
+      margin-bottom: 6px;
+    }
+
+    .qty-box{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .qty-box button{
+      width: 35px;
+      height: 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #eee;
+    }
+
+    .remove-btn{
+      width: 100%;
+      padding: 8px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: black;
+      color: white;
+      font-weight: bold;
+    }
+
+    .checkout-btn{
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #00c853;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .close-cart{
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #ff2f2f;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    /* POPUPS */
+    .popup-bg{
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 4000;
+    }
+
+    .popup-box{
+      background: white;
+      padding: 20px;
+      width: 380px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .popup-box h2{
+      margin-bottom: 10px;
+    }
+
+    .popup-box input, .popup-box select{
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    .popup-btn{
+      width: 95%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: #ff2f2f;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .popup-close{
+      width: 95%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      background: black;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    /* FOOTER */
+    footer{
+      background: #222;
+      color: white;
+      padding: 30px;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    footer p{
+      margin-top: 5px;
+      color: #ddd;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 768px){
+      .search-box input{
+        width: 160px;
+      }
+      .popup-box{
+        width: 90%;
+      }
+      .cart-sidebar{
+        width: 100%;
+      }
+      .hero-content h1{
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="logo">Cafe Serenoo</div>
+
+    <div class="search-box">
+      <input type="text" id="searchBar" placeholder="Search coffee, tea, breakfast..." />
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <div>
+      <div class="auth-buttons" id="authButtons">
+        <button id="loginOpenBtn">Login</button>
+        <button id="signupOpenBtn">Sign Up</button>
+      </div>
+
+      <div class="user-box" id="userBox" style="display:none;">
+        <span id="userNameShow"></span>
+        <button id="logoutBtn">Logout</button>
+      </div>
+
+      <span class="cart-icon" id="cartIcon">
+        🛒 Cart <span id="cartCount">0</span>
+      </span>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Discover the best food & drinks in Cafe Serenoo</h1>
+      <p>Order online, add to cart, checkout & enjoy delicious food</p>
+    </div>
+  </section>
+
+  <h2 class="section-title">Cafe Serenoo Menu</h2>
+
+  <section class="menu-container">
+
+    <!-- COFFEE -->
+    <div class="menu-card">
+      <span class="offer">COFFEE</span>
+      <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Cold Coffee</h3>
+        <p class="desc">Chilled creamy coffee with ice</p>
+        <div class="meta"><span>⭐ 4.6</span><span>⏱ 15 min</span></div>
+        <div class="price">₹120</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Cold Coffee" data-price="120">Add</button>
+          <button class="buy-btn" data-name="Cold Coffee" data-price="120">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <span class="offer">COFFEE</span>
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Cappuccino</h3>
+        <p class="desc">Hot cappuccino with milk foam</p>
+        <div class="meta"><span>⭐ 4.7</span><span>⏱ 12 min</span></div>
+        <div class="price">₹150</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Cappuccino" data-price="150">Add</button>
+          <button class="buy-btn" data-name="Cappuccino" data-price="150">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <span class="offer">COFFEE</span>
+      <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Black Coffee</h3>
+        <p class="desc">Strong coffee without milk</p>
+        <div class="meta"><span>⭐ 4.5</span><span>⏱ 8 min</span></div>
+        <div class="price">₹70</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Black Coffee" data-price="70">Add</button>
+          <button class="buy-btn" data-name="Black Coffee" data-price="70">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEA -->
+    <div class="menu-card">
+      <span class="offer">TEA</span>
+      <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Ginger Tea</h3>
+        <p class="desc">Kadak tea with ginger</p>
+        <div class="meta"><span>⭐ 4.4</span><span>⏱ 10 min</span></div>
+        <div class="price">₹40</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Ginger Tea" data-price="40">Add</button>
+          <button class="buy-btn" data-name="Ginger Tea" data-price="40">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <span class="offer">TEA</span>
+      <img src="https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Masala Tea</h3>
+        <p class="desc">Indian chai with masala flavour</p>
+        <div class="meta"><span>⭐ 4.6</span><span>⏱ 10 min</span></div>
+        <div class="price">₹50</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Masala Tea" data-price="50">Add</button>
+          <button class="buy-btn" data-name="Masala Tea" data-price="50">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BREAKFAST -->
+    <div class="menu-card">
+      <span class="offer">BREAKFAST</span>
+      <img src="https://images.unsplash.com/photo-1626078294577-3fdbedb73d74?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Poha</h3>
+        <p class="desc">Nagpur special poha breakfast</p>
+        <div class="meta"><span>⭐ 4.8</span><span>⏱ 20 min</span></div>
+        <div class="price">₹60</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Poha" data-price="60">Add</button>
+          <button class="buy-btn" data-name="Poha" data-price="60">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <span class="offer">BREAKFAST</span>
+      <img src="https://images.unsplash.com/photo-1604908554065-4d2f2c3a0d31?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Paneer Paratha</h3>
+        <p class="desc">Hot paratha stuffed with paneer</p>
+        <div class="meta"><span>⭐ 4.7</span><span>⏱ 20 min</span></div>
+        <div class="price">₹90</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Paneer Paratha" data-price="90">Add</button>
+          <button class="buy-btn" data-name="Paneer Paratha" data-price="90">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <span class="offer">SOUTH</span>
+      <img src="https://images.unsplash.com/photo-1630409346694-2f0f2b4a1d6c?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Masala Dosa</h3>
+        <p class="desc">Crispy dosa with spicy potato filling</p>
+        <div class="meta"><span>⭐ 4.8</span><span>⏱ 25 min</span></div>
+        <div class="price">₹120</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Masala Dosa" data-price="120">Add</button>
+          <button class="buy-btn" data-name="Masala Dosa" data-price="120">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <span class="offer">SOUTH</span>
+      <img src="https://images.unsplash.com/photo-1630414514508-3e80c3bdad75?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Idli Sambhar</h3>
+        <p class="desc">Soft idli served with sambhar</p>
+        <div class="meta"><span>⭐ 4.6</span><span>⏱ 18 min</span></div>
+        <div class="price">₹80</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Idli Sambhar" data-price="80">Add</button>
+          <button class="buy-btn" data-name="Idli Sambhar" data-price="80">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SNACKS -->
+    <div class="menu-card">
+      <span class="offer">SNACKS</span>
+      <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Veg Sandwich</h3>
+        <p class="desc">Fresh veggies & cheese sandwich</p>
+        <div class="meta"><span>⭐ 4.3</span><span>⏱ 18 min</span></div>
+        <div class="price">₹90</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Veg Sandwich" data-price="90">Add</button>
+          <button class="buy-btn" data-name="Veg Sandwich" data-price="90">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <span class="offer">SNACKS</span>
+      <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Veg Burger</h3>
+        <p class="desc">Cheesy burger with crispy patty</p>
+        <div class="meta"><span>⭐ 4.5</span><span>⏱ 20 min</span></div>
+        <div class="price">₹130</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Veg Burger" data-price="130">Add</button>
+          <button class="buy-btn" data-name="Veg Burger" data-price="130">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-card">
+      <span class="offer">FAST</span>
+      <img src="https://images.unsplash.com/photo-1604908176997-125f25cc500f?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Maggi</h3>
+        <p class="desc">Hot masala maggi with veggies</p>
+        <div class="meta"><span>⭐ 4.4</span><span>⏱ 12 min</span></div>
+        <div class="price">₹60</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Maggi" data-price="60">Add</button>
+          <button class="buy-btn" data-name="Maggi" data-price="60">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DESSERT -->
+    <div class="menu-card">
+      <span class="offer">DESSERT</span>
+      <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Chocolate Cake</h3>
+        <p class="desc">Soft rich chocolate dessert cake</p>
+        <div class="meta"><span>⭐ 4.9</span><span>⏱ 15 min</span></div>
+        <div class="price">₹200</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Chocolate Cake" data-price="200">Add</button>
+          <button class="buy-btn" data-name="Chocolate Cake" data-price="200">Buy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIZZA -->
+    <div class="menu-card">
+      <span class="offer">PIZZA</span>
+      <img src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=900&q=80" alt="">
+      <div class="menu-info">
+        <h3>Paneer Pizza</h3>
+        <p class="desc">Paneer topping pizza with cheese</p>
+        <div class="meta"><span>⭐ 4.6</span><span>⏱ 25 min</span></div>
+        <div class="price">₹220</div>
+        <div class="btn-box">
+          <button class="cart-btn" data-name="Paneer Pizza" data-price="220">Add</button>
+          <button class="buy-btn" data-name="Paneer Pizza" data-price="220">Buy</button>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-sidebar" id="cartSidebar">
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+
+    <h3>Total: ₹<span id="totalPrice">0</span></h3>
+
+    <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+    <button class="close-cart" id="closeCart">Close</button>
+  </div>
+
+  <!-- CHECKOUT POPUP -->
+  <div class="popup-bg" id="checkoutPopup">
+    <div class="popup-box">
+      <h2>Checkout</h2>
+
+      <input type="text" id="custName" placeholder="Enter Name" required>
+      <input type="text" id="custAddress" placeholder="Enter Address" required>
+
+      <select id="paymentMethod">
+        <option value="COD">Cash On Delivery</option>
+        <option value="UPI">UPI</option>
+        <option value="Card">Card</option>
+      </select>
+
+      <button class="popup-btn" id="payBtn">Pay & Place Order</button>
+      <button class="popup-close" id="closeCheckout">Cancel</button>
+    </div>
+  </div>
+
+  <!-- LOGIN POPUP -->
+  <div class="popup-bg" id="loginPopup">
+    <div class="popup-box">
+      <h2>Login</h2>
+
+      <input type="email" id="loginEmail" placeholder="Enter Email" required>
+      <input type="password" id="loginPassword" placeholder="Enter Password" required>
+
+      <button class="popup-btn" id="loginBtn">Login</button>
+      <button class="popup-close" id="closeLogin">Cancel</button>
+    </div>
+  </div>
+
+  <!-- SIGNUP POPUP -->
+  <div class="popup-bg" id="signupPopup">
+    <div class="popup-box">
+      <h2>Sign Up</h2>
+
+      <input type="text" id="signupName" placeholder="Enter Name" required>
+      <input type="email" id="signupEmail" placeholder="Enter Email" required>
+      <input type="password" id="signupPassword" placeholder="Enter Password" required>
+
+      <button class="popup-btn" id="signupBtn">Create Account</button>
+      <button class="popup-close" id="closeSignup">Cancel</button>
+    </div>
+  </div>
+
+  <footer>
+    <h2>Cafe Serenoo</h2>
+    <p>📍 Nagpur, Maharashtra</p>
+    <p>📞 +91 98765 43210</p>
+    <p>📧 cafeserenoo@gmail.com</p>
+    <br>
+    <p>© 2026 Cafe Serenoo | All Rights Reserved</p>
+  </footer>
+
+  <script>
+    // CART DATA
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    let cartCount = document.getElementById("cartCount");
+    let cartItems = document.getElementById("cartItems");
+    let totalPrice = document.getElementById("totalPrice");
+
+    let cartSidebar = document.getElementById("cartSidebar");
+    let cartIcon = document.getElementById("cartIcon");
+    let closeCart = document.getElementById("closeCart");
+
+    let checkoutPopup = document.getElementById("checkoutPopup");
+    let checkoutBtn = document.getElementById("checkoutBtn");
+    let payBtn = document.getElementById("payBtn");
+    let closeCheckout = document.getElementById("closeCheckout");
+
+    // OPEN CART
+    cartIcon.addEventListener("click", function () {
+      cartSidebar.classList.add("active");
+    });
+
+    // CLOSE CART
+    closeCart.addEventListener("click", function () {
+      cartSidebar.classList.remove("active");
+    });
+
+    // ADD TO CART
+    let cartButtons = document.querySelectorAll(".cart-btn");
+
+    cartButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        let name = btn.getAttribute("data-name");
+        let price = parseInt(btn.getAttribute("data-price"));
+
+        let existing = cart.find(item => item.name === name);
+
+        if (existing) {
+          existing.qty += 1;
+        } else {
+          cart.push({ name, price, qty: 1 });
+        }
+
+        updateCart();
+        cartSidebar.classList.add("active");
+      });
+    });
+
+    // BUY NOW
+    let buyButtons = document.querySelectorAll(".buy-btn");
+
+    buyButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        let name = btn.getAttribute("data-name");
+        let price = parseInt(btn.getAttribute("data-price"));
+
+        cart = [{ name, price, qty: 1 }];
+        updateCart();
+
+        checkoutPopup.style.display = "flex";
+      });
+    });
+
+    // UPDATE CART UI
+    function updateCart() {
+      cartItems.innerHTML = "";
+      let total = 0;
+      let count = 0;
+
+      cart.forEach(function (item, index) {
+        total += item.price * item.qty;
+        count += item.qty;
+
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <h4>${item.name}</h4>
+            <p>₹${item.price} x ${item.qty}</p>
+
+            <div class="qty-box">
+              <button onclick="decreaseQty(${index})">-</button>
+              <span>${item.qty}</span>
+              <button onclick="increaseQty(${index})">+</button>
+            </div>
+
+            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+          </div>
+        `;
+      });
+
+      cartCount.innerText = count;
+      totalPrice.innerText = total;
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    function increaseQty(index) {
+      cart[index].qty += 1;
+      updateCart();
+    }
+
+    function decreaseQty(index) {
+      if (cart[index].qty > 1) {
+        cart[index].qty -= 1;
+      } else {
+        cart.splice(index, 1);
+      }
+      updateCart();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    // SEARCH SYSTEM (FIXED + WORKING)
+    let searchBtn = document.getElementById("searchBtn");
+    let searchBar = document.getElementById("searchBar");
+
+    function searchFood() {
+      let value = searchBar.value.toLowerCase();
+      let cards = document.querySelectorAll(".menu-card");
+
+      cards.forEach(function (card) {
+        let name = card.querySelector("h3").innerText.toLowerCase();
+        let desc = card.querySelector(".desc").innerText.toLowerCase();
+
+        if (name.includes(value) || desc.includes(value)) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    }
+
+    searchBtn.addEventListener("click", searchFood);
+    searchBar.addEventListener("input", searchFood);
+
+    // CHECKOUT OPEN
+    checkoutBtn.addEventListener("click", function () {
+      if (cart.length === 0) {
+        alert("Cart is empty ❌");
+      } else {
+        checkoutPopup.style.display = "flex";
+      }
+    });
+
+    // CHECKOUT CLOSE
+    closeCheckout.addEventListener("click", function () {
+      checkoutPopup.style.display = "none";
+    });
+
+    // PAYMENT
+    payBtn.addEventListener("click", function () {
+      let name = document.getElementById("custName").value;
+      let address = document.getElementById("custAddress").value;
+      let payment = document.getElementById("paymentMethod").value;
+
+      if (name === "" || address === "") {
+        alert("Please fill your details ❌");
+        return;
+      }
+
+      alert("🎉 Order Successful ✅\n\nCustomer: " + name + "\nPayment Method: " + payment);
+
+      cart = [];
+      updateCart();
+      checkoutPopup.style.display = "none";
+      localStorage.removeItem("cart");
+    });
+
+    // LOGIN / SIGNUP SYSTEM
+    let loginPopup = document.getElementById("loginPopup");
+    let signupPopup = document.getElementById("signupPopup");
+
+    let loginOpenBtn = document.getElementById("loginOpenBtn");
+    let signupOpenBtn = document.getElementById("signupOpenBtn");
+
+    let closeLogin = document.getElementById("closeLogin");
+    let closeSignup = document.getElementById("closeSignup");
+
+    let signupBtn = document.getElementById("signupBtn");
+    let loginBtn = document.getElementById("loginBtn");
+
+    let logoutBtn = document.getElementById("logoutBtn");
+
+    let authButtons = document.getElementById("authButtons");
+    let userBox = document.getElementById("userBox");
+    let userNameShow = document.getElementById("userNameShow");
+
+    loginOpenBtn.addEventListener("click", function () {
+      loginPopup.style.display = "flex";
+    });
+
+    signupOpenBtn.addEventListener("click", function () {
+      signupPopup.style.display = "flex";
+    });
+
+    closeLogin.addEventListener("click", function () {
+      loginPopup.style.display = "none";
+    });
+
+    closeSignup.addEventListener("click", function () {
+      signupPopup.style.display = "none";
+    });
+
+    signupBtn.addEventListener("click", function () {
+      let name = document.getElementById("signupName").value;
+      let email = document.getElementById("signupEmail").value;
+      let password = document.getElementById("signupPassword").value;
+
+      if (name === "" || email === "" || password === "") {
+        alert("Please fill all signup details ❌");
+        return;
+      }
+
+      let userData = { name, email, password };
+      localStorage.setItem("userData", JSON.stringify(userData));
+
+      alert("Account Created Successfully ✅ Now Login!");
+      signupPopup.style.display = "none";
+    });
+
+    loginBtn.addEventListener("click", function () {
+      let email = document.getElementById("loginEmail").value;
+      let password = document.getElementById("loginPassword").value;
+
+      let savedUser = JSON.parse(localStorage.getItem("userData"));
+
+      if (!savedUser) {
+        alert("No account found! Please Sign Up first ❌");
+        return;
+      }
+
+      if (email === savedUser.email && password === savedUser.password) {
+        alert("Login Successful ✅ Welcome " + savedUser.name);
+
+        localStorage.setItem("loggedInUser", savedUser.name);
+
+        loginPopup.style.display = "none";
+        updateAuthUI();
+      } else {
+        alert("Wrong Email or Password ❌");
+      }
+    });
+
+    logoutBtn.addEventListener("click", function () {
+      localStorage.removeItem("loggedInUser");
+      alert("Logged Out Successfully ✅");
+      updateAuthUI();
+    });
+
+    function updateAuthUI() {
+      let loggedUser = localStorage.getItem("loggedInUser");
+
+      if (loggedUser) {
+        authButtons.style.display = "none";
+        userBox.style.display = "flex";
+        userNameShow.innerText = "Hi, " + loggedUser;
+      } else {
+        authButtons.style.display = "block";
+        userBox.style.display = "none";
+      }
+    }
+
+    updateCart();
+    updateAuthUI();
+  </script>
+
+<footer>
+  <!-- CONTACT US SECTION -->
+<section class="contact-section" id="contact">
+  <h2 class="section-title">Contact Us</h2>
+
+  <div class="contact-container">
+
+    <div class="contact-info">
+      <h3 id="cafeName"></h3>
+      <p id="cafeLocation"></p>
+      <p id="cafePhone"></p>
+      <p id="cafeEmail"></p>
+      <p id="cafeTime"></p>
+
+      <iframe 
+        id="cafeMap"
+        width="100%" height="220" 
+        style="border:0; border-radius:12px;" 
+        allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="contact-form">
+      <h3>Send Message</h3>
+      <input type="text" id="contactName" placeholder="Enter Your Name">
+      <input type="email" id="contactEmail" placeholder="Enter Your Email">
+      <textarea id="contactMsg" placeholder="Enter Your Message"></textarea>
+
+      <button id="sendMsgBtn">Send Message</button>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // ✅ बस यही जगह info बदलना है
+  let CONTACT_INFO = {
+    name: "Cafe Serenoo",
+    location: "📍 Location: Chandangaon , Chhindwara",
+    phone: "📞 Phone: +91 9406756107 , +91 8305132252",
+    email: "📧 Email: shrivastavamukesh386@gmail.com",
+    time: "⏰ Timing: 9:00 AM - 11:00 PM",
+    mapLink: "https://maps.app.goo.gl/PU1ANb8dyK8h1EbJA"
+  };
+
+  // Auto Fill Contact Details
+  document.getElementById("cafeName").innerText = CONTACT_INFO.name;
+  document.getElementById("cafeLocation").innerText = CONTACT_INFO.location;
+  document.getElementById("cafePhone").innerText = CONTACT_INFO.phone;
+  document.getElementById("cafeEmail").innerText = CONTACT_INFO.email;
+  document.getElementById("cafeTime").innerText = CONTACT_INFO.time;
+  document.getElementById("cafeMap").src = CONTACT_INFO.mapLink;
+
+  // Contact Form Button
+  document.getElementById("sendMsgBtn").addEventListener("click", function(){
+    let name = document.getElementById("contactName").value;
+    let email = document.getElementById("contactEmail").value;
+    let msg = document.getElementById("contactMsg").value;
+
+    if(name === "" || email === "" || msg === ""){
+      alert("Please fill all contact details ❌");
+    } else {
+      alert("Message Sent Successfully ✅\n\nThank you " + name + "!");
+      document.getElementById("contactName").value = "";
+      document.getElementById("contactEmail").value = "";
+      document.getElementById("contactMsg").value = "";
+    }
+  });
+</script>
+</footer>
+</body>
+</html>
